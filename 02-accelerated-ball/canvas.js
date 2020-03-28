@@ -11,11 +11,14 @@ document.body.appendChild(canvas);
 const ctx = canvas.getContext('2d');
 
 function Circle(radius) {
-	this.x = Math.floor(Math.random() * canvas.width);
-	this.y = Math.floor(Math.random() * canvas.height);
+	this.x = canvas.width / 2
+	this.y = canvas.height / 2
 
-	this.velocity = Physics.createVector(5, 5)
 	this.radius = radius;
+	this.velocity = Physics.createVector(0, 15);
+	this.acceleration = Physics.createVector(1, 15);
+	this.friction = 0.97;
+
 }
 
 Circle.prototype.draw = function() {
@@ -33,6 +36,9 @@ Circle.prototype.update = function() {
     this.x += this.velocity.x;
 	this.y += this.velocity.y;
 
+	this.velocity.y *= this.acceleration.x
+	this.velocity.y += this.acceleration.y	
+	
 	if (this.x >= canvas.width - this.radius || this.x <= 0) {
 		this.velocity.x = -this.velocity.x;
 	} else if (this.y >= canvas.height - this.radius || this.y <= 0) {
@@ -40,17 +46,15 @@ Circle.prototype.update = function() {
 	}
 }
 
-const circles = [];
+let circle = new Circle(30)
 
 const animate = function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    for (let i = 0; i < 50; i++) {
-        circles.push(new Circle(1));
-        circles[i].update()
-    }
-    
     window.requestAnimationFrame(animate);
+	
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	circle.update()
+    
 };
 
 window.requestAnimationFrame(animate);
