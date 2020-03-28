@@ -16,8 +16,13 @@ function Circle(radius) {
 
 	this.radius = radius;
 	this.velocity = Physics.createVector(0, 15);
-	this.acceleration = Physics.createVector(1, 15);
+	this.acceleration = Physics.createVector(1, 0.95);
 	this.friction = 0.97;
+
+	this.force = 10,     
+	this.angle = 45, //degrees. Need to convert!     
+	this.ax = Math.cos(this.angle * Math.PI / 180) * this.force,     
+	this.ay = Math.sin(this.angle * Math.PI / 180) * this.force;
 
 }
 
@@ -33,15 +38,16 @@ Circle.prototype.update = function() {
     this.draw()
 
 	// I don't understand this velocity crap
-    this.x += this.velocity.x;
-	this.y += this.velocity.y;
+    this.x += this.ax
+	this.y += this.ay
 
-	this.velocity.y *= this.acceleration.x
-	this.velocity.y += this.acceleration.y	
-	
+
+	this.velocity.x += this.ax
+	this.velocity.y += this.ay
+
 	if (this.x >= canvas.width - this.radius || this.x <= 0) {
 		this.velocity.x = -this.velocity.x;
-	} else if (this.y >= canvas.height - this.radius || this.y <= 0) {
+	} else if (this.y >= canvas.height - this.radius || this.y <= this.radius) {
 		this.velocity.y = -this.velocity.y;
 	}
 }
