@@ -1,8 +1,8 @@
 
-export default function Engine() {
+export default function Physics() {
 
 }
 
-Engine.createVector = function(x, y) {
+Physics.createVector = function(x, y) {
 	return { x: x, y: y }
 }

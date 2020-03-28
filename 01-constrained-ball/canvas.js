@@ -1,5 +1,4 @@
-import Engine from '../physics.js'
-
+import Physics from '../physics.js'
 
 const canvas = document.createElement('canvas');
 canvas.id = 'canvas';
@@ -15,7 +14,7 @@ function Circle(radius) {
 	this.x = Math.floor(Math.random() * canvas.width);
 	this.y = Math.floor(Math.random() * canvas.height);
 
-	this.velocity = Engine.createVector(5, 5)
+	this.velocity = Physics.createVector(5, 5)
 	this.radius = radius;
 }
 
